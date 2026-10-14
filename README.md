@@ -1,3 +1,4 @@
+
 # 🚁 Indigenous Digital Twin System for UAV Aero-Piston Engines
 
 An end-to-end, edge-deployable **Digital Twin & Predictive Health Monitoring (PHM)** system for UAV aero-piston engines (e.g., Rotax 912 / 914 series).
@@ -7,7 +8,6 @@ This system ingests real-time CAN-bus engine telemetry, computes a **0D thermody
 ---
 
 ## 🛠️ System Architecture & Data Pipeline
-
 ```
 ┌─────────────────┐   CAN Frame    ┌──────────────────────┐   Decoded Signals   ┌───────────────────────┐
 │  UAV Engine /    ├───────────────►│  DBC Telemetry       ├─────────────────────►│  0D Thermodynamic     │
@@ -15,7 +15,15 @@ This system ingests real-time CAN-bus engine telemetry, computes a **0D thermody
 └─────────────────┘                 └──────────────────────┘                       └──────────┬────────────┘
                                                                                                 │ Physics Baseline
                                                                                                 ▼
-┌─────────────────┐   Health & RUL  ┌──────────────────────┐   Residual Deltas    ┌───────────────────────┐
+┌─────────────────┐   Health & RUL  ┌───────# 🚁 Indigenous Digital Twin System for UAV Aero-Piston Engines
+
+An end-to-end, edge-deployable **Digital Twin & Predictive Health Monitoring (PHM)** system for UAV aero-piston engines (e.g., Rotax 912 / 914 series).
+
+This system ingests real-time CAN-bus engine telemetry, computes a **0D thermodynamic physics baseline**, calculates residual deviations (ΔY = Actual − Physics-Expected), scores anomalies via a **Physics-Informed Neural Network (PINN)**, and estimates **Remaining Useful Life (RUL)** using an LSTM sequence model.
+
+---
+
+## 🛠️ System Architecture & Data Pipeline───────────────┐   Residual Deltas    ┌───────────────────────┐
 │ SQLite Database  │◄────────────────┤  LSTM RUL Engine &    │◄──────────────────────┤ Residual Calculator   │
 │ (data/db_file)   │ & Anomaly State │  PINN Diagnostics     │  ΔCHT = |Actual-Phys| │                        │
 └────────┬─────────┘                 └──────────────────────┘                       └───────────────────────┘
